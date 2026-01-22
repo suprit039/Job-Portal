@@ -1,0 +1,17 @@
+{
+  "name": "job-portal-fullstack",
+  "version": "1.0.0",
+  "description": "Full-stack job portal application",
+  "scripts": {
+    "vercel-build": "cd Frontend && npm install && npm run build",
+    "dev:frontend": "cd Frontend && npm run dev",
+    "dev:backend": "cd Backend && npm run dev",
+    "install:frontend": "cd Frontend && npm install",
+    "install:backend": "cd Backend && npm install",
+    "install:all": "npm run install:frontend && npm run install:backend"
+  },
+  "workspaces": [
+    "Frontend",
+    "Backend"
+  ]
+}
