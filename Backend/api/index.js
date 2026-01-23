@@ -10,7 +10,7 @@ import connectDB from "../utils/db.js";
 
 dotenv.config({});
 const app = express();
-const port =process.env.PORT || 4000;
+const port =process.env.PORT || 8000;
 app.get("/home",(req,res)=>{
     return res.status(200).json({
         message:"I am coming from backend",
