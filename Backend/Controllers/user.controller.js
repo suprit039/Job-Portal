@@ -13,8 +13,9 @@ export const register = async (req, res) => {
         success: false,
       });
     }
-     let cloudResponse;
-      const file = req.file;
+     
+    let cloudResponse;
+    const file = req.file;
     if (file) {
       const fileUri = getDataUri(file);
       cloudResponse = await cloudinary.uploader.upload(fileUri.content);
@@ -27,6 +28,7 @@ export const register = async (req, res) => {
         success: false,
       });
     }
+    
     const hashedPassword = await bcrypt.hash(password, 10);
     await User.create({
       fullname,
@@ -35,15 +37,20 @@ export const register = async (req, res) => {
       password: hashedPassword,
       role,
       profile: {
-        profilePhoto: cloudResponse.secure_url,
+        profilePhoto: cloudResponse?.secure_url || "",
       },
     });
+    
     return res.status(201).json({
       message: "Account created successfully.",
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.log("Register error:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };
 export const login = async (req, res) => {
@@ -94,7 +101,8 @@ export const login = async (req, res) => {
       .cookie("token", token, {
         maxAge: 1 * 24 * 60 * 60 * 1000,
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict',
+        secure: process.env.NODE_ENV === 'production',
       })
       .json({
         message: `Welcome back ${user.fullname}`,
@@ -116,17 +124,24 @@ export const logout = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.log("Logout error:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };
 export const updateProfile = async (req, res) => {
   try {
     const { fullname, email, phoneNumber, bio, skills } = req.body;
-    const file= req.file;
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    const file = req.file;
+    
+    let cloudResponse;
+    if (file) {
+      const fileUri = getDataUri(file);
+      cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    }
 
-    //Cloudnary comes here
     let skillsArray;
     if (skills) {
       skillsArray = skills.split(",");
@@ -140,6 +155,7 @@ export const updateProfile = async (req, res) => {
         success: false,
       });
     }
+    
     //updating data
     if (fullname) user.fullname = fullname;
     if (email) user.email = email;
@@ -162,13 +178,18 @@ export const updateProfile = async (req, res) => {
       role: user.role,
       profile: user.profile,
     };
+    
     return res.status(200).json({
       message: "Profile updated successfully",
       user,
       success: true,
     });
   } catch (error) {
-    console.log(error);
+    console.log("Update profile error:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false,
+    });
   }
 };
 // export default user.controller.js;
