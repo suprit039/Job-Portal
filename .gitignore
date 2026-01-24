@@ -50,14 +50,7 @@ pnpm-lock.yaml
 .env.production
 .env.development
 
-# Vercel
-.vercel
-
 # Build outputs
 dist/
 build/
 *.local
-
-# Optional: Keep package-lock.json for consistency
-# Uncomment below if you want to ignore package-lock.json
-# package-lock.json
