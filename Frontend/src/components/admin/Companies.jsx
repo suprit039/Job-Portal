@@ -1,3 +1,4 @@
+import useGetAllCompanies from '@/hooks/useGetAllCompanies'
 import { setSearchCompanyByText } from '@/redux/companySlice'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -6,7 +7,6 @@ import Navbar from '../Shared/Navbar'
 import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import CompaniesTable from './CompaniesTable'
-import useGetAllCompanies from '@/hooks/useGetAllCompanies'
 
 const Companies = () => {
     useGetAllCompanies();
@@ -20,14 +20,14 @@ const Companies = () => {
     return (
         <div>
             <Navbar />
-            <div className='max-w-6xl mx-auto my-10'>
-                <div className='flex items-center justify-between my-5'>
+            <div className='max-w-6xl mx-auto my-10 px-4'>
+                <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4 my-5'>
                     <Input
-                        className="w-fit"
+                        className="w-full md:w-fit"
                         placeholder="Filter by name"
                         onChange={(e) => setInput(e.target.value)}
                     />
-                    <Button onClick={() => navigate("/admin/companies/create")}>New Company</Button>
+                    <Button onClick={() => navigate("/admin/companies/create")} className="w-full md:w-auto">New Company</Button>
                 </div>
                 <CompaniesTable/>
             </div>

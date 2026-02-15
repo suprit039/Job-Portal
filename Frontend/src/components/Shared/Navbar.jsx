@@ -1,11 +1,11 @@
 import {
-  Avatar,
-  AvatarImage,
+    Avatar,
+    AvatarImage,
 } from "@/components/ui/avatar";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
 } from "@/components/ui/popover";
 import { setUser } from "@/redux/authSlice";
 import { USER_API_END_POINT } from "@/utils/constant";
@@ -37,14 +37,14 @@ const Navbar = () => {
   }
   return (
     <div className="bg-white">
-      <div className="flex items-center justify-between mx-auto max-w-7xl h-16">
+      <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-4">
         <div>
-          <h1 className="text-2xl font-bold">
+          <h1 className="text-xl md:text-2xl font-bold">
             Job<span className="text-[#F83002]">Portal</span>
           </h1>
         </div>
-        <div className="flex items-center gap-12">
-          <ul className="flex font-medium items-center gap-5">
+        <div className="flex items-center gap-4 md:gap-12">
+          <ul className="hidden md:flex font-medium items-center gap-5">
             {
               user && user.role === 'recruiter' ? (
                 <>

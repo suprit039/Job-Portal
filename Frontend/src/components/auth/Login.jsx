@@ -11,7 +11,7 @@ import { Button } from "../ui/button"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import {
-  RadioGroup
+    RadioGroup
 } from "../ui/radio-group"
 const Login = () => {
   const [input, setInput] = useState({
@@ -58,9 +58,9 @@ const submitHandler=async(e)=>{
   return (
     <div>
       <Navbar />
-      <div className="flex items-center justify-center mx-auto max-w-7xl">
-        <form onSubmit={submitHandler} className="w-1/2 border border-gray-200 p-4 my-10">
-          <h1 className="font-bold text-xl mb-5">Login</h1>
+      <div className="flex items-center justify-center mx-auto max-w-7xl px-4">
+        <form onSubmit={submitHandler} className="w-full md:w-2/3 lg:w-1/2 border border-gray-200 p-4 md:p-6 my-10 rounded-lg">
+          <h1 className="font-bold text-xl md:text-2xl mb-5">Login</h1>
 
           <div className="my-2">
             <Label>Email:</Label>
@@ -70,13 +70,13 @@ const submitHandler=async(e)=>{
             <Label>Password</Label>
             <Input type="password" value={input.password} name="password" onChange={changeEventHandler} placehoder="password" />
           </div>
-          <div className='flex items-center justify-between'>
-            <RadioGroup className="flex items-center gap-4 my-5">
-              <div className="flex items-center gap-3">
+          <div className='flex flex-col md:flex-row md:items-center md:justify-between gap-4'>
+            <RadioGroup className="flex items-center gap-4 my-2 md:my-5">
+              <div className="flex items-center gap-2">
                 <input type="radio" name="role" value="student" checked={input.role === 'student'} onChange ={changeEventHandler} className="cursor-pointer " />
                 <Label htmlFor="r1">Student</Label>
               </div>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <input type="radio" name="role" value="recruiter" checked={input.role === 'recruiter'} onChange ={changeEventHandler} className="cursor-pointer" />
                 <Label htmlFor="r2">Recruiter</Label>
               </div>

@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../Shared/Navbar'
-import { Button } from '../ui/button'
-import { ArrowLeft, Loader2 } from 'lucide-react'
-import { Label } from '../ui/label'
-import { Input } from '../ui/input'
-import axios from 'axios'
+import useGetCompanyById from '@/hooks/useGetCompanyById'
 import { COMPANY_API_END_POINT } from '@/utils/constant'
+import axios from 'axios'
+import { ArrowLeft, Loader2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
-import { useSelector } from 'react-redux'
-import useGetCompanyById from '@/hooks/useGetCompanyById'
+import Navbar from '../Shared/Navbar'
+import { Button } from '../ui/button'
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
 
 const CompanySetup = () => {
     const params = useParams();
@@ -77,16 +77,16 @@ const CompanySetup = () => {
     return (
         <div>
             <Navbar />
-            <div className='max-w-xl mx-auto my-10'>
+            <div className='max-w-xl mx-auto my-10 px-4'>
                 <form onSubmit={submitHandler}>
-                    <div className='flex items-center gap-5 p-8'>
+                    <div className='flex items-center gap-5 p-4 md:p-8'>
                         <Button onClick={() => navigate("/admin/companies")} variant="outline" className="flex items-center gap-2 text-gray-500 font-semibold">
                             <ArrowLeft />
-                            <span>Back</span>
+                            <span className="hidden md:inline">Back</span>
                         </Button>
-                        <h1 className='font-bold text-xl'>Company Setup</h1>
+                        <h1 className='font-bold text-lg md:text-xl'>Company Setup</h1>
                     </div>
-                    <div className='grid grid-cols-2 gap-4'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 px-4'>
                         <div>
                             <Label>Company Name</Label>
                             <Input
@@ -123,7 +123,7 @@ const CompanySetup = () => {
                                 onChange={changeEventHandler}
                             />
                         </div>
-                        <div>
+                        <div className="md:col-span-2">
                             <Label>Logo</Label>
                             <Input
                                 type="file"
@@ -132,9 +132,11 @@ const CompanySetup = () => {
                             />
                         </div>
                     </div>
+                    <div className="px-4">
                     {
                         loading ? <Button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin' /> Please wait </Button> : <Button type="submit" className="w-full my-4">Update</Button>
                     }
+                    </div>
                 </form>
             </div>
 
