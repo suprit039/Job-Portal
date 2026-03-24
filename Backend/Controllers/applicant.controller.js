@@ -43,6 +43,7 @@ export const applyJob = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
     }
 };
 
@@ -50,7 +51,7 @@ export const getAppliedJobs = async (req, res) => {
     try {
         const userId = req.id;
         const application = await Application.find({ applicant: userId })
-            .sort({ created: -1 })
+            .sort({ createdAt: -1 })
             .populate({
                 path: "job",
                 options: { sort: { createdAt: -1 } },
@@ -71,6 +72,7 @@ export const getAppliedJobs = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
     }
 };
 export const getApplicants = async (req, res) => {
@@ -95,6 +97,7 @@ export const getApplicants = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
     }
 };
 export const updateStatus = async (req, res) => {
@@ -123,5 +126,6 @@ export const updateStatus = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({ message: "Internal server error", success: false });
     }
 };
