@@ -42,17 +42,12 @@ const corsOptions = {
     // Allow requests with no origin (Postman, curl, mobile apps)
     if (!origin) return callback(null, true);
 
-    // In production: allow all origins (safe for APIs)
-    if (process.env.NODE_ENV === "production") {
-      return callback(null, true);
-    }
-
-    // Local development
     const allowedOrigins = [
       "http://localhost:5173",
       "http://localhost:5174",
       "http://localhost:3000",
-    ];
+      process.env.FRONTEND_URL,
+    ].filter(Boolean);
 
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
